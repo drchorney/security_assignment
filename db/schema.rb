@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130051702) do
+ActiveRecord::Schema.define(version: 20180514065934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20170130051702) do
   add_index "roles", ["mname", "mid"], name: "index_roles_on_mname_and_mid", using: :btree
   add_index "roles", ["mname"], name: "index_roles_on_mname", using: :btree
   add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
+
+  create_table "service_offerings", force: :cascade do |t|
+    t.integer  "thing_id",         null: false
+    t.string   "public_field"
+    t.string   "non_public_field"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "service_offerings", ["thing_id"], name: "index_service_offerings_on_thing_id", using: :btree
 
   create_table "thing_images", force: :cascade do |t|
     t.integer  "image_id",               null: false
@@ -98,6 +108,7 @@ ActiveRecord::Schema.define(version: 20170130051702) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "roles", "users"
+  add_foreign_key "service_offerings", "things"
   add_foreign_key "thing_images", "images"
   add_foreign_key "thing_images", "things"
 end

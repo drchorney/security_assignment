@@ -54,6 +54,12 @@ module ApiHelper
     parsed_body
   end
 
+  def create_resource_merge path, factory, merge_hash, status=:created
+    jpost path, FactoryGirl.attributes_for(factory).merge(merge_hash)
+    expect(response).to have_http_status(status) if status
+    parsed_body
+  end
+
   def apply_admin account
     User.find(account.symbolize_keys[:id]).roles.create(:role_name=>Role::ADMIN)
     return account
