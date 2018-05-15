@@ -184,6 +184,7 @@ namespace :ptourist do
      :priority=>0
      }
     ]
+    
     create_thing thing, organizer, members, images
 
     thing={:name=>"Holiday Inn Timonium",
