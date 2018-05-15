@@ -1,9 +1,9 @@
 <div class="service-offering-list" ng-show="$ctrl.authz.canQuery">
   <ul>
     <li ng-repeat="item in $ctrl.items | orderBy:'public_field'">
-      <a ui-sref="things({id:item.thing_id})">
+      <a ui-sref="service_offerings({id:item.id})">
           <span class="service_offering_id id">{{item.id}}</span>
-          {{item.public_field}}
+          {{item.so_name}}
       <span ng-show="$ctrl.authz.canUpdateItem(item)"> *</span>
       </a>
     </li>

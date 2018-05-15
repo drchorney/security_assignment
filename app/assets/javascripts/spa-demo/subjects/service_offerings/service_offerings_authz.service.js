@@ -5,9 +5,9 @@
     .module("spa-demo.subjects")
     .factory("spa-demo.subjects.ServiceOfferingsAuthz", ServiceOfferingsAuthzFactory);
 
-    ServiceOfferingsAuthzFactory.$inject = ["spa-demo.authz.Authz",
-                                "spa-demo.authz.BasePolicy"];
-  function ServiceOfferingsAuthzFactory(Authz, BasePolicy) {
+    ServiceOfferingsAuthzFactory.$inject = ["$q","spa-demo.authz.Authz",
+                                "spa-demo.authz.BasePolicy","spa-demo.subjects.Thing"];
+  function ServiceOfferingsAuthzFactory($q,Authz, BasePolicy,Thing) {
     function ServiceOfferingsAuthz() {
       BasePolicy.call(this, "ServiceOffering");
     }
@@ -31,6 +31,19 @@
       };
       ServiceOfferingsAuthz.prototype.canRemoveImage=function(service_offering) {
           return Authz.isOrganizer(service_offering) || Authz.isAdmin();
+      };
+
+      ServiceOfferingsAuthz.prototype.canUpdate = function(service_offering) {
+        //console.log("BasePolicy.canUpdate", item);
+        if (!service_offering) {
+          return false;
+        } else {
+          console.log(service_offering.thing_id);
+          // var thing = Thing.get({id:service_offering.thing_id});
+          // thing.$promise.then(function(thing){
+          //   return Authz.isOrganizer(thing);
+          // })
+        }
       };
 
     return new ServiceOfferingsAuthz();

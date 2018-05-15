@@ -17,7 +17,7 @@
         authz: "<"
       },
       require: {
-        imagesAuthz: "^sdImagesAuthz"
+        serviceOfferingsAuthz: "^sdServiceOfferingsAuthz"
       }
     });
 
@@ -81,15 +81,15 @@
     function newResource() {
       console.log("newResource()");
       vm.item = new ServiceOffering();
-      vm.imagesAuthz.newItem(vm.item);
+      vm.serviceOfferingsAuthz.newItem(vm.item);
       return vm.item;
     }
 
     function reload(serviceOfferingId) {
       var serviceOfferingId = serviceOfferingId ? serviceOfferingId : vm.item.id;
-      console.log("re/loading serviceOffering", itemId);
-      vm.item = ServiceOffering.get({id:itemId});
-      vm.imagesAuthz.newItem(vm.item);
+      console.log("re/loading serviceOffering", serviceOfferingId);
+      vm.item = ServiceOffering.get({id:serviceOfferingId});
+      vm.serviceOfferingsAuthz.newItem(vm.item);
       $q.all([vm.item.$promise]).catch(handleError);
     }
 
@@ -109,7 +109,6 @@
     function update() {
       vm.item.errors = null;
       var update=vm.item.$update();
-      linkThings(update);
     }
 
     function remove() {
@@ -132,7 +131,7 @@
         vm.item["errors"]={}
         vm.item["errors"]["full_messages"]=[response]; 
       }      
-      $scope.imageform.$setPristine();
+      $scope.service-offeringform.$setPristine();
     }    
   }
 

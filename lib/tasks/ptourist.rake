@@ -75,8 +75,8 @@ namespace :ptourist do
     end
 
     service_offerings.each do |so|
-      puts "building service_offering for #{thing.name}, #{so[:public_field]}, #{so[:non_public_field]}, by #{organizer.name}"
-      ServiceOffering.create(:thing_id=>thing.id,:public_field=>so[:public_field],:non_public_field=>so[:non_public_field])
+      puts "building service_offering for #{thing.name}, , #{so[:so_name]}, #{so[:public_field]}, #{so[:non_public_field]}, by #{organizer.name}"
+      ServiceOffering.create(:thing_id=>thing.id,:so_name => so[:so_name],:public_field=>so[:public_field],:non_public_field=>so[:non_public_field])
     end
 
   end
@@ -145,9 +145,11 @@ namespace :ptourist do
      :lat=>39.2854217},
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering # 1",
+        :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering # 2",
+        :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     create_thing thing, organizer, members, images, service_offerings
@@ -177,9 +179,11 @@ namespace :ptourist do
      :lat=>39.284038}
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering # 2",
+       :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering # 3",
+        :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     create_thing thing, organizer, members, images, service_offerings
@@ -203,9 +207,11 @@ namespace :ptourist do
      }
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle",
+      :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle14",
+      :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     
@@ -225,9 +231,11 @@ namespace :ptourist do
      }
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle #18",
+      :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle #19",
+      :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     create_thing thing, organizer, members, images, service_offerings
@@ -261,9 +269,11 @@ namespace :ptourist do
      }
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle #99",
+       :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering Kabargle #101",
+      :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     create_thing thing, organizer, members, images, service_offerings
@@ -327,9 +337,11 @@ Work up a sweat in our 24-hour StayFit Gym, which features Life Fitness® cardio
      }
     ]
     service_offerings = [
-      {:public_field=>"Blargo Blargo public data",
+      {:so_name=> "This Service Offering Chublambo!",
+      :public_field=>"Blargo Blargo public data",
       :non_public_field=>"Blah Blah non public data"},
-      {:public_field=>"More Blargo Blargo public data",
+      {:so_name=> "This Service Offering Chublambo! #2",
+      :public_field=>"More Blargo Blargo public data",
       :non_public_field=>"More Blah Blah non public data"}
     ]
     create_thing thing, organizer, members, images, service_offerings

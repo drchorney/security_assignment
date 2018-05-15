@@ -3,7 +3,7 @@ class ServiceOfferingsController < ApplicationController
   helper ServiceOfferingsHelper
 
   before_action :set_service_offering, only: [:show, :update, :destroy]
-  wrap_parameters :service_offering, include: ["public_field","non_public_field"]
+  wrap_parameters :service_offering, include: ["public_field","non_public_field","thing_id","so_name"]
   before_action :authenticate_user!, only: [:index,:show,:create, :update, :destroy]
   after_action :verify_authorized
   # after_action :verify_policy_scoped, only: [:index]
@@ -27,6 +27,7 @@ class ServiceOfferingsController < ApplicationController
     thing_id = params[:thing_id]
     @service_offering = ServiceOffering.new(service_offering_params)
     @service_offering.thing_id = thing_id
+    @service_offering.so_name = params[:so_name]
 
     # puts @service_offering
 
@@ -68,7 +69,7 @@ class ServiceOfferingsController < ApplicationController
     end
 
     def service_offering_params
-      params.require(:service_offering).permit(:public_field,:non_public_field)
+      params.require(:service_offering).permit(:so_name,:public_field,:non_public_field)
     end
 
 end
