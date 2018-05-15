@@ -2,6 +2,8 @@ version: '2'
 services:
   postgres:
     image: postgres
+    ports:
+      - "5433:5432"
     environment:
       - POSTGRES_PASSWORD
   mongo:
@@ -23,6 +25,8 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PASSWORD
       - MONGO_HOST=mongo:27017
+      - WEB_CONCURRENCY=1
+      - RAILS_MAX_THREADS=1
   rake:
       build: .
       command: docker/docker-rake-commands.sh
@@ -71,3 +75,4 @@ services:
     ports:
       - "4444:4444"
       - "5901:5900"
+

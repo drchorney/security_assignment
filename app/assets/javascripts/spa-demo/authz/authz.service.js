@@ -101,6 +101,8 @@
     //return true if the current user has an organizer role for the instance
     //users with this role have the lead when modifying the instance
     function isOrganizer(item) {
+      console.log(item);
+      console.log(item.user_roles);
       return !item ? false : hasRole(item.user_roles, 'organizer');
     }
 

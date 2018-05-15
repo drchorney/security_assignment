@@ -67,6 +67,7 @@
     }    
 
     function canUpdateItem(item) {
+      console.log(ServiceOfferingsAuthz.canUpdate(item));
       return ServiceOfferingsAuthz.canUpdate(item);
     }    
   }

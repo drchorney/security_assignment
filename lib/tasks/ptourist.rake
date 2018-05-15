@@ -63,6 +63,20 @@ namespace :ptourist do
         member
       end
     }.select {|r| r}
+
+    service_offerings.each do |so|
+      puts "building service_offering for #{thing.name}, , #{so[:so_name]}, #{so[:public_field]}, #{so[:non_public_field]}, by #{organizer.name}"
+      service_offering = ServiceOffering.create(:thing_id=>thing.id,:so_name => so[:so_name],:public_field=>so[:public_field],:non_public_field=>so[:non_public_field])
+      organizer.add_role(Role::ORGANIZER, service_offering).save
+
+      m=members.map { |member|
+        unless (member.id==organizer.id || member.id==mike_user.id)
+          member.add_role(Role::MEMBER, service_offering).save
+          member
+        end
+      }.select {|r| r}
+    end
+
     puts "added organizer for #{thing.name}: #{first_names([organizer])}"
     puts "added members for #{thing.name}: #{first_names(m)}"
     images.each do |img|
@@ -73,12 +87,6 @@ namespace :ptourist do
                      :creator_id=>organizer.id)
                 .tap {|ti| ti.priority=img[:priority] if img[:priority]}.save!
     end
-
-    service_offerings.each do |so|
-      puts "building service_offering for #{thing.name}, , #{so[:so_name]}, #{so[:public_field]}, #{so[:non_public_field]}, by #{organizer.name}"
-      ServiceOffering.create(:thing_id=>thing.id,:so_name => so[:so_name],:public_field=>so[:public_field],:non_public_field=>so[:non_public_field])
-    end
-
   end
 
   desc "reset all data"

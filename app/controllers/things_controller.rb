@@ -9,6 +9,8 @@ class ThingsController < ApplicationController
 
   def index
     authorize Thing
+    
+    #PostPolicy::Scope.new(current_user,Thing.all).resolve
     things = policy_scope(Thing.all)
     @things = ThingPolicy.merge(things)
   end

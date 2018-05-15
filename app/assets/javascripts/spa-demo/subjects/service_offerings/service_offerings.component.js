@@ -56,9 +56,10 @@
                                    "$state", "$stateParams",
                                    "spa-demo.authz.Authz",                                   
                                    "spa-demo.subjects.ServiceOffering",
+                                   "spa-demo.subjects.Thing"
                                    ];
   function ServiceOfferingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, ServiceOffering) {
+                                 Authz, ServiceOffering, Thing) {
     var vm=this;
     vm.create = create;
     vm.clear  = clear;
@@ -90,7 +91,17 @@
       console.log("re/loading serviceOffering", serviceOfferingId);
       vm.item = ServiceOffering.get({id:serviceOfferingId});
       vm.serviceOfferingsAuthz.newItem(vm.item);
-      $q.all([vm.item.$promise]).catch(handleError);
+      
+      
+      var promise = vm.item.$promise
+
+      promise.then( function (object) {
+        vm.thing = Thing.get({id:object.thing_id});
+      },
+        handleError
+      );
+      
+      // $q.all([vm.item.$promise]).catch(handleError);
     }
 
     function clear() {

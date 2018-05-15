@@ -9,8 +9,11 @@ class ServiceOfferingsController < ApplicationController
   # after_action :verify_policy_scoped, only: [:index]
 
   def index
+
     authorize ServiceOffering
-    @service_offerings = ServiceOffering.all
+    service_offerings = policy_scope(ServiceOffering.all)
+    @service_offerings = ServiceOfferingPolicy.merge(service_offerings)
+    # @service_offerings = ServiceOffering.all
     @current_user = current_user
   end
 
@@ -18,6 +21,10 @@ class ServiceOfferingsController < ApplicationController
     authorize @service_offering
 
     @current_user = current_user
+
+    service_offerings = policy_scope(ServiceOffering.where(:id=>@service_offering.id))
+    @service_offering = ServiceOfferingPolicy.merge(service_offerings).first
+
     #now just need to edit the show view to show only non-public stuff if member or organizor. 
   end
 
@@ -35,9 +42,9 @@ class ServiceOfferingsController < ApplicationController
 
     User.transaction do
       if @service_offering.save
-        # role=current_user.add_role(Role::ORGANIZER, @service_offering)
-        # @service_offering.user_roles << role.role_name
-        # role.save!
+        role=current_user.add_role(Role::ORGANIZER, @service_offering)
+        @service_offering.user_roles << role.role_name
+        role.save!
         render :show, status: :created, location: @service_offering
       else
         render json: {errors:@service_offering.errors.messages}, status: :unprocessable_entity

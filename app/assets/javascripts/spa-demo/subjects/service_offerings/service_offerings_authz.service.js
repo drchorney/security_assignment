@@ -33,19 +33,6 @@
           return Authz.isOrganizer(service_offering) || Authz.isAdmin();
       };
 
-      ServiceOfferingsAuthz.prototype.canUpdate = function(service_offering) {
-        //console.log("BasePolicy.canUpdate", item);
-        if (!service_offering) {
-          return false;
-        } else {
-          console.log(service_offering.thing_id);
-          // var thing = Thing.get({id:service_offering.thing_id});
-          // thing.$promise.then(function(thing){
-          //   return Authz.isOrganizer(thing);
-          // })
-        }
-      };
-
     return new ServiceOfferingsAuthz();
   }
 })();

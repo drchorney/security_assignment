@@ -38,10 +38,10 @@ class ServiceOfferingPolicy < ApplicationPolicy
 
   class Scope < Scope
     def user_roles
-      joins_clause=["left join Roles r on r.mname='Image'",
-                    "r.mid=Images.id",
+      joins_clause=["left join Roles r on r.mname='ServiceOffering'",
+                    "r.mid=service_offerings.id",
                     "r.user_id #{user_criteria}"].join(" and ")
-      scope.select("Images.*, r.role_name")
+      scope.select("service_offerings.*, r.role_name")
            .joins(joins_clause)
     end
 

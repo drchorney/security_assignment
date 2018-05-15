@@ -1,8 +1,9 @@
-<form class="service-offering-form row" name="service-offeringform">
+<form class="service-offering-form row" name="serviceofferingform">
   <span class="service_offering_id id">{{$ctrl.item.id}}</span>
   <span class="invalid">{{$ctrl.item.errors.full_messages}}</span>
 
-  <div class="service-offering-name row col-lg-12">
+  <div class="service-offering-name row col-lg-12"
+    ng-show="$ctrl.item.so_name">
     <label class="col-xs-3">Name:</label>
     <input class="col-xs-9"
            name="service-offering-name" 
@@ -14,40 +15,54 @@
     <span class="invalid">{{$ctrl.item.errors.name}}</span>
   </div>
 
-  <div class="service-offering-public-fields row col-lg-12"
-       ng-show="service-offeringform.$valid">
+  <div class="service-offering-name row col-lg-12"
+            ng-show="$ctrl.item.public_field">
     <label class="col-xs-3">Public Field:</label>
-    <textarea class="col-xs-9"
-           name="service-offering-public-field" 
-           ng-model="$ctrl.item.public_field" 
+    <input class="col-xs-9"
+           name="service-offering-name" 
+           data-ng-model="$ctrl.item.public_field" 
            ng-readonly="!$ctrl.authz.canUpdate"
-           type="text"
-           size="80"
-           maxlength="4000"/>
-    <span class="invalid">{{$ctrl.item.errors.description}}</span>
+           required="required"
+           maxlength="40"
+           pattern=".{3,}" title="3 character minimum for Name"/>
+    <span class="invalid">{{$ctrl.item.errors.name}}</span>
   </div>
 
-  <div class="service-offering-non-public-fields row col-lg-12"
-       ng-show="$ctrl.authz.canGetDetails && service-offeringform.$valid">
+  <div class="service-offering-name row col-lg-12"
+            ng-show="$ctrl.item.non_public_field">
     <label class="col-xs-3">Non Public Field:</label>
-    <textarea class="col-xs-9"
-           name="service-offering-non-public-field" 
-           ng-model="$ctrl.item.non_public_field" 
+    <input class="col-xs-9"
+           name="service-offering-name" 
+           data-ng-model="$ctrl.item.non_public_field" 
            ng-readonly="!$ctrl.authz.canUpdate"
-           type="text"
-           size="80"
-           maxlength="4000"/>
-    <span class="invalid">{{$ctrl.item.errors.notes}}</span>
+           required="required"
+           maxlength="40"
+           pattern=".{3,}" title="3 character minimum for Name"/>
+    <span class="invalid">{{$ctrl.item.errors.name}}</span>
   </div>
 
-  <div class="image-controls">
+  <div class="service-offering-thing row col-lg-12"
+      ng-show="$ctrl.thing">
+    <label class="col-xs-3">Belongs to Thing:</label>
+    <ul class="service-offering-thing col-xs-9">
+      <a ui-sref="things({id:$ctrl.thing.id})">
+        <span class="service_offering_id id">{{$ctrl.thing.id}}</span>
+        {{$ctrl.thing.name}}
+    </a>
+    </ul>
+    <span class="invalid">{{$ctrl.item.errors.service_offerings}}</span>
+  </div>
+
+
+
+  <div class="service-offering-controls">
     <span ng-show="$ctrl.authz.authenticated">
 
       <span ng-show="$ctrl.item.id">
         <button name="service-offering-update"
                 type="submit"
                 ng-show="$ctrl.authz.canUpdate" 
-                ng-disabled="!service-offeringform.$dirty"
+                ng-disabled="!serviceofferingform.$dirty"
                 ng-click="$ctrl.update()">Update Service Offering</button>
         <button name="service-offering-delete"
                 type="submit"
@@ -57,7 +72,7 @@
     </span>
     <button name="service-offering-clear"
             type="submit"
-            ng-show="$ctrl.item.id || service-offeringform.$dirty"
+            ng-show="$ctrl.item.id || serviceofferingform.$dirty"
             ng-click="$ctrl.clear()">Clear Service Offering</button>
   </div>
 

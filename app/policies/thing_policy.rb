@@ -43,6 +43,7 @@ class ThingPolicy < ApplicationPolicy
     def user_roles members_only=true, allow_admin=true
       include_admin=allow_admin && @user && @user.is_admin?
       member_join = members_only && !include_admin ? "join" : "left join"
+      # binding.pry
       joins_clause=["#{member_join} Roles r on r.mname='Thing'",
                     "r.mid=Things.id",
                     "r.user_id #{user_criteria}"].join(" and ")
