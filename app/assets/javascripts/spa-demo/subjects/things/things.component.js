@@ -38,9 +38,9 @@
                                    "spa-demo.subjects.Thing",
                                    "spa-demo.subjects.ThingImage",
                                    "spa-demo.subjects.ServiceOffering",
-                                   "spa-demo.subjects.ServiceOfferingsAuthz"];
+                                   ];
   function ThingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, Thing, ThingImage, ServiceOffering, ServiceOfferingsAuthz) {
+                                 Authz, Thing, ThingImage, ServiceOffering) {
     var vm=this;
     vm.create = create;
     vm.service_offering_create = service_offering_create;
@@ -124,12 +124,10 @@
       // var item__.thing_id = thing_id;
       so_item.thing_id = thing_id;
 
-      // $state.go("service_offerings")
-      // console.log(new_service_offering);
 
       so_item.$save().then(
         function(){
-          // console.log("thing created", vm.item);
+          console.log("service_offering created", so_item);
           $state.go("service_offerings",{id:so_item.id});
         },
         handleError);
