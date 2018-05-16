@@ -61,7 +61,7 @@
   function ServiceOfferingEditorController($scope, $q, $state, $stateParams, 
                                  Authz, ServiceOffering, Thing) {
     var vm=this;
-    vm.create = create;
+    // vm.create = create;
     vm.clear  = clear;
     vm.update  = update;
     vm.remove  = remove;
@@ -92,7 +92,6 @@
       vm.item = ServiceOffering.get({id:serviceOfferingId});
       vm.serviceOfferingsAuthz.newItem(vm.item);
       
-      
       var promise = vm.item.$promise
 
       promise.then( function (object) {
@@ -101,7 +100,6 @@
         handleError
       );
       
-      // $q.all([vm.item.$promise]).catch(handleError);
     }
 
     function clear() {
@@ -109,13 +107,15 @@
       $state.go(".", {id:null});
     }
 
-    function create() {
-      vm.item.$save().then(
-        function(){
-           $state.go(".", {id: vm.item.id}); 
-        },
-        handleError);
-    }
+    // the create is from the Thing menu
+
+    // function create() {
+    //   vm.item.$save().then(
+    //     function(){
+    //        $state.go(".", {id: vm.item.id}); 
+    //     },
+    //     handleError);
+    // }
 
     function update() {
       vm.item.errors = null;

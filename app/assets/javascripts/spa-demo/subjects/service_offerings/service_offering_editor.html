@@ -3,7 +3,7 @@
   <span class="invalid">{{$ctrl.item.errors.full_messages}}</span>
 
   <div class="service-offering-name row col-lg-12"
-    ng-show="$ctrl.item.so_name">
+    ng-show="$ctrl.item.id">
     <label class="col-xs-3">Name:</label>
     <input class="col-xs-9"
            name="service-offering-name" 
@@ -16,7 +16,7 @@
   </div>
 
   <div class="service-offering-name row col-lg-12"
-            ng-show="$ctrl.item.public_field">
+            ng-show="$ctrl.item.id">
     <label class="col-xs-3">Public Field:</label>
     <input class="col-xs-9"
            name="service-offering-name" 
@@ -29,7 +29,7 @@
   </div>
 
   <div class="service-offering-name row col-lg-12"
-            ng-show="$ctrl.item.non_public_field">
+            ng-show="$ctrl.item.non_public_field || $ctrl.authz.canUpdate">
     <label class="col-xs-3">Non Public Field:</label>
     <input class="col-xs-9"
            name="service-offering-name" 

@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20180514065934) do
 
   create_table "service_offerings", force: :cascade do |t|
     t.integer  "thing_id",         null: false
-    t.string   "so_name",          null: false
+    t.string   "so_name"
     t.string   "public_field"
     t.string   "non_public_field"
     t.datetime "created_at",       null: false

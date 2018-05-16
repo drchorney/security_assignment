@@ -21,8 +21,8 @@
         //console.log("service_offeringsAuthz.canQuery");
         return Authz.isAuthenticated();
       };
-  
-        //add custom definitions
+
+      //add custom definitions
       ServiceOfferingsAuthz.prototype.canAddImage=function(service_offering) {
           return Authz.isMember(service_offering);
       };

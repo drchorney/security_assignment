@@ -8,7 +8,7 @@
   ServiceOfferingFactory.$inject = ["$resource", "spa-demo.config.APP_CONFIG"];
   function ServiceOfferingFactory($resource, APP_CONFIG) {
     var service = $resource(APP_CONFIG.server_url + "/api/service_offerings/:id",
-      { id: '@id' },
+      { id: '@id'},
       {
         update: {method: "PUT"},
         save:   {method: "POST", transformRequest: checkEmptyPayload }
@@ -20,9 +20,9 @@
   //all of our fields are optional
   //ngResource is not passing a null field by default, we have to force it
   function checkEmptyPayload(data) {
-    // if (!data['caption']) {
-    //   data['caption']=null;
-    // } 
+    if (!data['so_name']) {
+      data['so_name']=" ";
+    } 
     return angular.toJson(data);
-  }    
+  }      
 })();

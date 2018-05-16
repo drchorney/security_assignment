@@ -106,6 +106,8 @@
     }
 
     function create() {
+      // console.log("FUCK");
+      // console.log(vm.item);
       vm.item.$save().then(
         function(){
            $state.go(".", {id: vm.item.id}); 

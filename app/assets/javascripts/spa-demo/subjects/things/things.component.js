@@ -36,11 +36,14 @@
                                    "$state","$stateParams",
                                    "spa-demo.authz.Authz",
                                    "spa-demo.subjects.Thing",
-                                   "spa-demo.subjects.ThingImage"];
+                                   "spa-demo.subjects.ThingImage",
+                                   "spa-demo.subjects.ServiceOffering",
+                                   "spa-demo.subjects.ServiceOfferingsAuthz"];
   function ThingEditorController($scope, $q, $state, $stateParams, 
-                                 Authz, Thing, ThingImage) {
+                                 Authz, Thing, ThingImage, ServiceOffering, ServiceOfferingsAuthz) {
     var vm=this;
     vm.create = create;
+    vm.service_offering_create = service_offering_create;
     vm.clear  = clear;
     vm.update  = update;
     vm.remove  = remove;
@@ -71,6 +74,7 @@
       var itemId = thingId ? thingId : vm.item.id;      
       console.log("re/loading thing", itemId);
       vm.images = ThingImage.query({thing_id:itemId});
+      var l_service_offerings = ServiceOffering.query()
       vm.item = Thing.get({id:itemId});
       vm.thingsAuthz.newItem(vm.item);
       vm.images.$promise.then(
@@ -79,6 +83,18 @@
             ti.originalPriority = ti.priority;            
           });                     
         });
+      
+        l_service_offerings.$promise.then(
+        function(){
+          var temp_array = [];
+          angular.forEach(l_service_offerings, function(so){
+            if (so.thing_id == itemId) {
+              temp_array.push(so);
+            }
+          });
+          vm.service_offerings = temp_array;
+        });
+   
       $q.all([vm.item.$promise,vm.images.$promise]).catch(handleError);
     }
     function haveDirtyLinks() {
@@ -99,6 +115,31 @@
           $state.go(".",{id:vm.item.id});
         },
         handleError);
+    }
+
+    function service_offering_create(thing_id) {
+
+      var so_item = new ServiceOffering();
+      console.log(thing_id);
+      // var item__.thing_id = thing_id;
+      so_item.thing_id = thing_id;
+
+      // $state.go("service_offerings")
+      // console.log(new_service_offering);
+
+      so_item.$save().then(
+        function(){
+          // console.log("thing created", vm.item);
+          $state.go("service_offerings",{id:so_item.id});
+        },
+        handleError);
+
+      // item__.$promise.then(
+      //   function(){
+      //     //  $state.go("service_offerings", {id: new_service_offering.id}); 
+      //     console.log(new_service_offering)
+      //   },
+      //   handleError);
     }
 
     function clear() {
